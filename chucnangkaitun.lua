@@ -131,7 +131,7 @@ spawn(function()
 		end
 	end)
 end);_G.BuyAllAib = true
-_G.BuyAllSword = true
+_G.BuyAllSword = false
 spawn(function()
         while wait() do
             if _G.BuyAllSword then
@@ -2185,7 +2185,7 @@ spawn(function()
 end)
 local FastAttackSpeed = true
 
-_G.Fast_Delay = 0.05
+_G.Fast_Delay = 0.75
 
 local CurveFrame = debug.getupvalues(require(game:GetService("Players").LocalPlayer.PlayerScripts:WaitForChild("CombatFramework")))[2]
 local VirtualUser = game:GetService("VirtualUser")
