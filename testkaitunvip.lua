@@ -1,14 +1,14 @@
 local DeltaLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/NguyenNhatDino/Delta/main/src/main.lua"))()
 
 local DeltaGui = DeltaLib:Start({
-    ["Name"] = "Tổng hợp",
-    ["Description"] = "By Nguyen Minh Duc",
+    ["Name"] = "Bản thử nghiệm",
+    ["Description"] = "  By Nguyen Minh Duc",
     ["Info Color"] = Color3.fromRGB(5, 59, 113),
     ["Logo Info"] = "rbxassetid://15292705867",
     ["Avatar Dev"] = "rbxassetid://15292705867",
     ["Name Info"] = "Nguyen Duc Info",
     ["Name Dev"] = "Nguyen Duc",
-    ["Info Description"] = "github.com/",
+    ["Info Description"] = "zalo.me/0765520260",
     ["Tab Width"] = 135,
     ["Color"] = Color3.fromRGB(127, 146, 242),
     ["CloseCallBack"] = function() end
@@ -23,22 +23,96 @@ local Notify = DeltaLib:Notify({
     ["Delay"] = 10
 })
 
-local MainTab = DeltaGui:MakeTab("Main")
+-- Tạo tab Info Hub
+local InfoTab = DeltaGui:MakeTab("Info Hub")
 
-local Section = MainTab:Section({
-    ["Title"] = "Nhặt chest V2",
-    ["Content"] = "Nhặt rương v2 cực vip"
+-- Thêm liên kết cộng đồng
+local infoSection = InfoTab:Section({
+    ["Title"] = "Thông tin của Hub",
+    ["Content"] = "Nhấn để xem thông tin."
 })
 
--- Thêm chức năng Kaitun
+infoSection:Button({
+    ["Title"] = "Zalo nhóm",
+    ["Content"] = "Nhấn để sao chép liên kết nhóm.",
+    ["Callback"] = function()
+        setclipboard("https://zalo.me/g/kmhete440") -- Thay thế bằng liên kết Discord thực tế của bạn
+        print("Đã sao chép liên kết nhóm vào clipboard.")
+    end
+})
+
+infoSection:Button({
+    ["Title"] = "Shop bán acc của admin",
+    ["Content"] = "Nhấn để sao chép liên kết Website.",
+    ["Callback"] = function()
+        setclipboard("https://ducdesigner.site") -- Thay thế bằng liên kết Website thực tế của bạn
+        print("Đã sao chép liên kết Website vào clipboard.")
+    end
+})
+
+infoSection:Button({
+    ["Title"] = "Zalo admin",
+    ["Content"] = "Nhấn để sao chép liên kết zalo admin.",
+    ["Callback"] = function()
+        setclipboard("https://zalo.me/0765520260") -- Thay thế bằng liên kết Github thực tế của bạn
+        print("Đã sao chép liên kết vào clipboard.")
+    end
+})
+
+-- Tạo tab Setting
+local SettingTab = DeltaGui:MakeTab("Setting")
+
+local settingSection = SettingTab:Section({
+    ["Title"] = "Setting",
+    ["Content"] = "Cài đặt tốc đánh."
+})
+
+-- Mục Super FastAttack
+local fastAttackToggle = settingSection:Toggle({
+    ["Title"] = "Super FastAttack",
+    ["Content"] = "Nó quá bá xin hãy cân nhắc",
+    ["Default"] = false,
+    ["Callback"] = function(value)
+        if value then
+            print("Đang bật Super FastAttack...")
+            pcall(function()
+                loadstring(game:HttpGet("https://pastebin.com/raw/YCFGUmFH"))()
+            end)
+        else
+            print("Super FastAttack đã tắt.")
+        end
+    end
+})
+
+-- Mục Super FastAttack + Click
+local fastAttackClickToggle = settingSection:Toggle({
+    ["Title"] = "Super FastAttack + Click",
+    ["Content"] = "Bật lên là 1 Hit die quái",
+    ["Default"] = false,
+    ["Callback"] = function(value)
+        if value then
+            print("Đang bật Super FastAttack + Click...")
+            pcall(function()
+                loadstring(game:HttpGet("https://pastebin.com/raw/0WyG0Sf0"))()
+            end)
+        else
+            print("Super FastAttack + Click đã tắt.")
+        end
+    end
+})
+
+-- Tạo tab Kaitun
+local MainTab = DeltaGui:MakeTab("Kaitun")
+
+-- Mục Kaitun
 local kaitunSection = MainTab:Section({
     ["Title"] = "Kaitun",
-    ["Content"] = "Chức năng Kaitun"
+    ["Content"] = "Các chức năng Kaitun"
 })
 
 local kaitunToggle = kaitunSection:Toggle({
-    ["Title"] = "Kaitun",
-    ["Content"] = "Kích hoạt để chạy chức năng Kaitun.",
+    ["Title"] = "Kaitun BETA",
+    ["Content"] = "Kích hoạt để chạy chức năng Kaitun BETA",
     ["Default"] = false,
     ["Callback"] = function(value)
         if value then
@@ -52,86 +126,123 @@ local kaitunToggle = kaitunSection:Toggle({
     end
 })
 
--- Các chức năng khác
-local Button = Section:Button({
-    ["Title"] = "My Button Title",
-    ["Content"] = "Click the button to execute the callback.",
-    ["Callback"] = function()
-        print("Button clicked!")
-    end
-})
-
-local TextInput = Section:TextInput({
-    ["Title"] = "My TextInput Title",
-    ["Content"] = "Enter your text here.",
-    ["Place Holder Text"] = "Placeholder...",
-    ["Clear Text On Focus"] = true,
-    ["Callback"] = function(text)
-        print("User entered:", text)
-    end
-})
-
-TextInput:Set("New Text Content")
-
-local Toggle = Section:Toggle({
-    ["Title"] = "My Toggle Title",
-    ["Content"] = "Toggle the option on or off.",
+-- Mục Kaitun Luxury
+local kaitunLuxuryToggle = kaitunSection:Toggle({
+    ["Title"] = "Kaitun Luxury",
+    ["Content"] = "Kích hoạt để chạy chức năng Kaitun Luxury.",
     ["Default"] = false,
     ["Callback"] = function(value)
-        print("Toggle state:", value)
+        if value then
+            print("Đang chạy Kaitun Luxury...")
+            pcall(function()
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/Duc18-code/ducsharelinkhub/refs/heads/main/luxury%20%C4%91%C3%A3%20fix.lua"))()
+            end)
+        else
+            print("Kaitun Luxury đã tắt.")
+        end
     end
 })
 
-Toggle:Set(true)
-print(Toggle.Value)
+-- Tạo tab Chest
+local ChestTab = DeltaGui:MakeTab("Chest")
 
-local Slider = Section:Slider({
-    ["Title"] = "My Slider Title",
-    ["Content"] = "Adjust the value using the slider.",
-    ["Min"] = 0,
-    ["Max"] = 100,
-    ["Increment"] = 1,
-    ["Default"] = 50,
+local chestSection = ChestTab:Section({
+    ["Title"] = "Chest",
+    ["Content"] = "Các chức năng Chest"
+})
+
+-- Mục Chest V2
+local chestV2Toggle = chestSection:Toggle({
+    ["Title"] = "Chest V2",
+    ["Content"] = "Kích hoạt để chạy chức năng Chest V2.",
+    ["Default"] = false,
     ["Callback"] = function(value)
-        print("Slider value:", value)
+        if value then
+            print("Đang chạy Chest V2...")
+            pcall(function()
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/Duc18-code/ducsharelinkhub/refs/heads/main/chestv2.lua"))()
+            end)
+        else
+            print("Chest V2 đã tắt.")
+        end
     end
 })
 
-Slider:Set(75)
-print(Slider.Value)
-
-local Dropdown = Section:Dropdown({
-    ["Title"] = "My Dropdown Title",
-    ["Multi"] = false,
-    ["Options"] = {"Option1", "Option2", "Option3"},
-    ["Default"] = {"Option1"},
-    ["Place Holder Text"] = "Select an option",
-    ["Callback"] = function(selected)
-        print("Selected option:", selected)
+-- Mục Chest Safe
+local chestSafeToggle = chestSection:Toggle({
+    ["Title"] = "Chest Safe",
+    ["Content"] = "Kích hoạt để chạy chức năng Chest Safe.",
+    ["Default"] = false,
+    ["Callback"] = function(value)
+        if value then
+            print("Đang chạy Chest Safe...")
+            pcall(function()
+                loadstring(game:HttpGet("https://pastefy.app/kL0f0Uuy/raw"))()
+            end)
+        else
+            print("Chest Safe đã tắt.")
+        end
     end
 })
 
-Dropdown:Clear()
-Dropdown:Add("New Option")
-Dropdown:Set({"Option2"})
-Dropdown:Refresh({"Option1", "Option2"}, {"Option1"})
-print(unpack(Dropdown.Value))
-print(unpack(Dropdown.Options))
+-- Tạo tab Find Fruit
+local FindFruitTab = DeltaGui:MakeTab("Find Fruit")
 
-local MultiDropdown = Section:Dropdown({
-    ["Title"] = "My MultiDropdown Title",
-    ["Multi"] = true,
-    ["Options"] = {"Option1", "Option2", "Option3"},
-    ["Default"] = {"Option1", "Option3"},
-    ["Place Holder Text"] = "Select options",
-    ["Callback"] = function(selected)
-        print("Selected options:", selected)
+local findFruitSection = FindFruitTab:Section({
+    ["Title"] = "Find Fruit",
+    ["Content"] = "Tìm kiếm trái cây BETA"
+})
+
+-- Mục Find Fruit V1
+local findFruitToggle = findFruitSection:Toggle({
+    ["Title"] = "Find Fruit V1",
+    ["Content"] = "Có trái thì nhặt không có thì đứng im",
+    ["Default"] = false,
+    ["Callback"] = function(value)
+        if value then
+            print("Đang bật Find Fruit V1...")
+            pcall(function()
+                loadstring(game:HttpGet('https://pastebin.com/raw/RHCj6rmd'))()
+            end)
+        else
+            print("Find Fruit V1 đã tắt.")
+        end
     end
 })
 
-MultiDropdown:Clear()
-MultiDropdown:Add("New Option")
-MultiDropdown:Set({"Option1", "Option2"})
-MultiDropdown:Refresh({"Option1", "Option2"}, {"Option1", "Option2"})
-print(unpack(MultiDropdown.Value))
-print(unpack(MultiDropdown.Options))
+-- Tạo tab Server
+local ServerTab = DeltaGui:MakeTab("Server")
+
+local serverSection = ServerTab:Section({
+    ["Title"] = "Server",
+    ["Content"] = "Các chức năng liên quan đến server."
+})
+
+-- Mục Server Hop
+serverSection:Button({
+    ["Title"] = "Server Hop",
+    ["Content"] = "Nhấn để chuyển server.",
+    ["Callback"] = function()
+        print("Đang thực hiện Server Hop...")
+        pcall(function()
+            loadstring(game:HttpGet("https://pastebin.com/raw/iySVbDQ2"))()
+        end)
+    end
+})
+
+-- Mục Anti AFK
+local antiAfkToggle = serverSection:Toggle({
+    ["Title"] = "Anti AFK",
+    ["Content"] = "Bật tắt chức năng Anti AFK.",
+    ["Default"] = false,
+    ["Callback"] = function(value)
+        if value then
+            print("Đang bật Anti AFK...")
+            pcall(function()
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/2dgeneralspam1/scripts-and-stuff/master/scripts/LoadstringypVvhJBq4QNz", true))()
+            end)
+        else
+            print("Anti AFK đã tắt.")
+        end
+    end
+})
