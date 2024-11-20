@@ -15,10 +15,10 @@ local DeltaGui = DeltaLib:Start({
 })
 
 local Notify = DeltaLib:Notify({
-    ["Title"] = "Kaitun Beta",
-    ["Description"] = "Hello World",
+    ["Title"] = "Nguyen Minh Duc",
+    ["Description"] = "Chào con đĩ chó",
     ["Color"] = Color3.fromRGB(127, 146, 242),
-    ["Content"] = "Delta Library",
+    ["Content"] = "Mày nên mua bản này đi ngon lắm đó",
     ["Time"] = 1,
     ["Delay"] = 10
 })
@@ -218,15 +218,20 @@ local serverSection = ServerTab:Section({
     ["Content"] = "Các chức năng liên quan đến server."
 })
 
--- Mục Server Hop
-serverSection:Button({
-    ["Title"] = "Server Hop",
-    ["Content"] = "Nhấn để chuyển server.",
-    ["Callback"] = function()
-        print("Đang thực hiện Server Hop...")
-        pcall(function()
-            game:GetService("TeleportService"):Teleport(game.PlaceId, game:GetService("Players").LocalPlayer)
-        end)
+-- Mục Server Hop (Cập nhật để có nút bật/tắt giống Anti AFK)
+local serverHopToggle = serverSection:Toggle({
+    ["Title"] = "Tham gia lại Server",
+    ["Content"] = "Bật tắt chức năng tham gia lại server.",
+    ["Default"] = false,
+    ["Callback"] = function(value)
+        if value then
+            print("Đang thực hiện tham gia lại...")
+            pcall(function()
+                game:GetService("TeleportService"):Teleport(game.PlaceId, game:GetService("Players").LocalPlayer)
+            end)
+        else
+            print("Chức năng tham gia lại đã tắt.")
+        end
     end
 })
 
