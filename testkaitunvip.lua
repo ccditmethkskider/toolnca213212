@@ -1,7 +1,7 @@
 local DeltaLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/NguyenNhatDino/Delta/main/src/main.lua"))()
 
 local DeltaGui = DeltaLib:Start({
-    ["Name"] = "Kaitun Beta",
+    ["Name"] = "Tổng hợp",
     ["Description"] = "By Nguyen Minh Duc",
     ["Info Color"] = Color3.fromRGB(5, 59, 113),
     ["Logo Info"] = "rbxassetid://15292705867",
@@ -26,8 +26,8 @@ local Notify = DeltaLib:Notify({
 local MainTab = DeltaGui:MakeTab("Main")
 
 local Section = MainTab:Section({
-    ["Title"] = "Local Player",
-    ["Content"] = "Local Player Function"
+    ["Title"] = "Nhặt chest V2",
+    ["Content"] = "Nhặt rương v2 cực vip"
 })
 
 -- Thêm chức năng Kaitun
