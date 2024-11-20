@@ -1,21 +1,21 @@
 local DeltaLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/NguyenNhatDino/Delta/main/src/main.lua"))()
 
 local DeltaGui = DeltaLib:Start({
-    ["Name"] = "Delta Library",
-    ["Description"] = "By Nuyen Nhat",
+    ["Name"] = "Kaitun Beta",
+    ["Description"] = "By Nguyen Minh Duc",
     ["Info Color"] = Color3.fromRGB(5, 59, 113),
     ["Logo Info"] = "rbxassetid://15292705867",
     ["Avatar Dev"] = "rbxassetid://15292705867",
-    ["Name Info"] = "Nguyen Nhat Info",
-    ["Name Dev"] = "NguyenNhat",
-    ["Info Description"] = "github.com/NguyenNhatDino",
+    ["Name Info"] = "Nguyen Duc Info",
+    ["Name Dev"] = "Nguyen Duc",
+    ["Info Description"] = "github.com/",
     ["Tab Width"] = 135,
     ["Color"] = Color3.fromRGB(127, 146, 242),
     ["CloseCallBack"] = function() end
 })
 
 local Notify = DeltaLib:Notify({
-    ["Title"] = "Delta Library",
+    ["Title"] = "Kaitun Beta",
     ["Description"] = "Hello World",
     ["Color"] = Color3.fromRGB(127, 146, 242),
     ["Content"] = "Delta Library",
