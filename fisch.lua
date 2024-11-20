@@ -1,0 +1,215 @@
+-- Configuration variables
+local config = {
+    fpsCap = 9999,
+    disableChat = true,            -- Set to true to hide the chat
+    enableBigButton = true,        -- Set to true to enlarge the button in the shake UI
+    bigButtonScaleFactor = 2,      -- Scale factor for big button size
+    shakeSpeed = 0.05,             -- Lower value means faster shake (e.g., 0.05 for fast, 0.1 for normal)
+    FreezeWhileFishing = true      -- Set to true to freeze your character while fishing
+}
+
+-- Load Fluent and create UI elements
+local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+local Window = Fluent:CreateWindow({
+    Title = "YTB: Zuesz",
+    SubTitle = "Beta Version",
+    TabWidth = 160,
+    Size = UDim2.fromOffset(530, 350),
+    Acrylic = true,
+    Theme = "Rose",
+    MinimizeKey = Enum.KeyCode.End
+})
+local Tabs = {
+    Main = Window:AddTab({ Title = "Main", Icon = "" }),
+    Misc = Window:AddTab({ Title = "Misc", Icon = "" }),
+}
+
+-- Create UI Controls
+Tabs.Main:AddSlider({
+    Title = "FPS Cap",
+    Min = 30,
+    Max = 240,
+    Default = config.fpsCap,
+    Callback = function(value)
+        config.fpsCap = value
+        setfpscap(value)
+    end
+})
+
+Tabs.Main:AddSwitch({
+    Title = "Disable Chat",
+    Default = config.disableChat,
+    Callback = function(state)
+        config.disableChat = state
+        StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, not state)
+    end
+})
+
+Tabs.Main:AddSwitch({
+    Title = "Enable Big Button",
+    Default = config.enableBigButton,
+    Callback = function(state)
+        config.enableBigButton = state
+    end
+})
+
+Tabs.Main:AddSlider({
+    Title = "Big Button Scale Factor",
+    Min = 1,
+    Max = 5,
+    Default = config.bigButtonScaleFactor,
+    Callback = function(value)
+        config.bigButtonScaleFactor = value
+    end
+})
+
+Tabs.Main:AddSlider({
+    Title = "Shake Speed",
+    Min = 0.01,
+    Max = 0.1,
+    Default = config.shakeSpeed,
+    Callback = function(value)
+        config.shakeSpeed = value
+    end
+})
+
+Tabs.Main:AddSwitch({
+    Title = "Freeze While Fishing",
+    Default = config.FreezeWhileFishing,
+    Callback = function(state)
+        config.FreezeWhileFishing = state
+    end
+})
+
+-- Utility functions and farm logic
+local players = game:GetService("Players")
+local vim = game:GetService("VirtualInputManager")
+local run_service = game:GetService("RunService")
+local replicated_storage = game:GetService("ReplicatedStorage")
+local localplayer = players.LocalPlayer
+local playergui = localplayer.PlayerGui
+local StarterGui = game:GetService("StarterGui")
+
+local utility = {blacklisted_attachments = {"bob", "bodyweld"}}; do
+    function utility.simulate_click(x, y, mb)
+        vim:SendMouseButtonEvent(x, y, (mb - 1), true, game, 1)
+        vim:SendMouseButtonEvent(x, y, (mb - 1), false, game, 1)
+    end
+
+    function utility.move_fix(bobber)
+        for index, value in bobber:GetDescendants() do
+            if (value.ClassName == "Attachment" and table.find(utility.blacklisted_attachments, value.Name)) then
+                value:Destroy()
+            end
+        end
+    end
+end
+
+local farm = {reel_tick = nil, cast_tick = nil}; do
+
+    function farm.find_rod()
+        local character = localplayer.Character
+        if not character then return nil end
+
+        for _, tool in ipairs(character:GetChildren()) do
+            if tool:IsA("Tool") and (tool.Name:find("rod") or tool.Name:find("Rod")) then
+                return tool
+            end
+        end
+        return nil
+    end
+
+    function farm.freeze_character(freeze)
+        local character = localplayer.Character
+        if character then
+            local humanoid = character:FindFirstChildOfClass("Humanoid")
+            if humanoid then
+                if freeze then
+                    humanoid.WalkSpeed = 0
+                    humanoid.JumpPower = 0
+                else
+                    humanoid.WalkSpeed = 16  -- Default WalkSpeed
+                    humanoid.JumpPower = 50  -- Default JumpPower
+                end
+            end
+        end
+    end
+
+    function farm.cast()
+        local character = localplayer.Character
+        if not character then return end
+
+        local rod = farm.find_rod()
+        if not rod then return end
+
+        -- Instantly cast without cooldown
+        local args = { [1] = 100, [2] = 1 }
+        rod.events.cast:FireServer(unpack(args))
+        farm.cast_tick = 0  -- Reset last cast time
+    end
+
+    function farm.shake()
+        local shake_ui = playergui:FindFirstChild("shakeui")
+        if shake_ui then
+            local safezone = shake_ui:FindFirstChild("safezone")
+            local button = safezone and safezone:FindFirstChild("button")
+
+            if button then
+                -- Apply big button option from config
+                if config.enableBigButton then
+                    button.Size = UDim2.new(config.bigButtonScaleFactor, 0, config.bigButtonScaleFactor, 0)
+                else
+                    button.Size = UDim2.new(1, 0, 1, 0)  -- Reset to default size if disabled
+                end
+
+                if button.Visible then
+                    utility.simulate_click(
+                        button.AbsolutePosition.X + button.AbsoluteSize.X / 2,
+                        button.AbsolutePosition.Y + button.AbsoluteSize.Y / 2,
+                        1
+                    )
+                end
+            end
+        end
+    end
+
+    function farm.reel()
+        local reel_ui = playergui:FindFirstChild("reel")
+        if not reel_ui then return end
+
+        local reel_bar = reel_ui:FindFirstChild("bar")
+        if not reel_bar then return end
+       
+        local reel_client = reel_bar:FindFirstChild("reel")
+        if not reel_client then return end
+
+        if reel_client.Disabled == true then
+            reel_client.Disabled = false
+        end
+
+        local update_colors = getsenv(reel_client).UpdateColors
+
+        -- Instant reel without waiting
+        if update_colors then
+            setupvalue(update_colors, 1, 100)
+            replicated_storage.events.reelfinished:FireServer(getupvalue(update_colors, 1), true)
+        end
+    end
+end
+
+-- Main loop with rod check, configurable shake speed, and freeze feature
+while task.wait(config.shakeSpeed) do
+    local rod = farm.find_rod() -- Check if player is holding a rod
+    if rod then
+        -- Freeze character if enabled in config
+        if config.FreezeWhileFishing then
+            farm.freeze_character(true)
+        end
+        farm.cast()
+        farm.shake()
+        farm.reel()
+    else
+        -- Unfreeze character when not fishing
+        farm.freeze_character(false)
+    end
+end
