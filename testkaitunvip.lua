@@ -225,7 +225,7 @@ serverSection:Button({
     ["Callback"] = function()
         print("Đang thực hiện Server Hop...")
         pcall(function()
-            loadstring(game:HttpGet("https://pastebin.com/raw/iySVbDQ2"))()
+            game:GetService("TeleportService"):Teleport(game.PlaceId, game:GetService("Players").LocalPlayer)
         end)
     end
 })
