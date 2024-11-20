@@ -77,7 +77,7 @@ _G.Settings = {
 
 -- Admin Config --
 
-local Level_Max = 2550
+local Level_Max = 2450
 
 ------------------
 
