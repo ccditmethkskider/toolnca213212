@@ -62,9 +62,9 @@ local Tabs = {
     Main = Window:AddTab({ Title = "Main", Icon = "home" }),
 }
 
--- Thêm tính năng Kaitun
+-- Thêm Toggle Kaitun
 local KaitunToggle = Tabs.Main:AddToggle({
-    Title = "Kaitun",
+    Title = "Kaitun", -- Tên hiển thị trên Toggle
     Default = false, -- Mặc định là tắt
     Callback = function(state)
         if state then
@@ -74,16 +74,20 @@ local KaitunToggle = Tabs.Main:AddToggle({
             end)
             if not success then
                 warn("[ERROR] Không thể tải chức năng Kaitun: " .. tostring(err))
+            else
+                print("Chức năng Kaitun đã được bật.")
             end
         else
             -- Nếu tắt
             print("Chức năng Kaitun đã bị tắt.")
-            -- Thêm logic vô hiệu hóa nếu cần
         end
     end
 })
 
+-- Thêm tiêu đề để dễ nhận biết
+Tabs.Main:AddLabel({ Title = "Tính năng chính" })
+
 local Options = Fluent.Options
 do
-    -- Các mục khác có thể thêm vào đây nếu cần
+    -- Thêm mục khác nếu cần
 end
