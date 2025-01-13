@@ -1,0 +1,486 @@
+local FlurioreLib = loadstring(game:HttpGet("https://github.com/ErutTheTeru/uilibrary/blob/main/Fluriore%20Lib/Source.lua?raw=true"))()
+local Notify = FlurioreLib:MakeNotify({
+    ["Title"] = "Nguyen Minh Duc",
+    ["Description"] = "Notification",
+    ["Color"] = Color3.fromRGB(255, 0, 255),
+    ["Content"] = "Welcome to UI PRO X",
+    ["Time"] = 1,
+    ["Delay"] = 10
+})
+local FlurioreGui = FlurioreLib:MakeGui({
+    ["NameHub"] = "UI X PRO ",
+    ["Description"] = "Nguyen Minh Duc",
+    ["Color"] = Color3.fromRGB(255, 0, 255),
+    ["Logo Player"] = "https://www.roblox.com/headshot-thumbnail/image?userId="..game:GetService("Players").LocalPlayer.UserId .."&width=420&height=420&format=png",
+    ["Name Player"] = tostring(game:GetService("Players").LocalPlayer.Name),
+    ["Tab Width"] = 125
+})
+
+-- Tạo tab Speed
+local TabSpeed = FlurioreGui:CreateTab({
+    ["Name"] = "Speed",
+    ["Icon"] = "rbxassetid://7733960981"
+})
+
+-- Thêm section Speed vào tab
+local SectionSpeed = TabSpeed:AddSection("Speed Settings")
+
+-- Mục 1: Tăng tốc độ bàn thờ
+local SpeedTable = false
+local ToggleSpeedTable = SectionSpeed:AddToggle({
+    ["Title"] = "Speed Table",
+    ["Content"] = "Enable Speed Table (Fast but no flying)",
+    ["Default"] = false,
+    ["Callback"] = function(Value)
+        SpeedTable = Value
+        if SpeedTable then
+            -- Thiết lập tốc độ nhanh mà không làm rơi xuống đất
+            local humanoid = game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid")
+            humanoid.WalkSpeed = 100
+            humanoid.PlatformStand = false  -- Đảm bảo nhân vật vẫn có thể đứng lên và không bị rơi
+            humanoid.JumpHeight = 0        -- Ngừng nhảy khi chạy với tốc độ bàn thờ
+        else
+            -- Trở lại tốc độ bình thường
+            local humanoid = game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid")
+            humanoid.WalkSpeed = 16
+            humanoid.PlatformStand = false
+            humanoid.JumpHeight = 50  -- Trả lại khả năng nhảy bình thường
+        end
+    end
+})
+
+-- Mục 2: Tốc độ tật nguyền
+local DisabledSpeed = false
+local ToggleDisabledSpeed = SectionSpeed:AddToggle({
+    ["Title"] = "Disabled Speed",
+    ["Content"] = "Enable Disabled Speed (Super slow but stylish)",
+    ["Default"] = false,
+    ["Callback"] = function(Value)
+        DisabledSpeed = Value
+        if DisabledSpeed then
+            game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed = 2
+        else
+            game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed = 16
+        end
+    end
+})
+
+local TabESP = FlurioreGui:CreateTab({
+    ["Name"] = "ESP",
+    ["Icon"] = "rbxassetid://7733960981"
+})
+
+-- Thêm section ESP vào tab
+local SectionESP = TabESP:AddSection("ESP Settings")
+
+-- Mục 1: ESP Xương
+local ESPBones = false
+local ESPBonesObjects = {}  -- Lưu trữ các đối tượng xương của người chơi
+local ToggleESPBones = SectionESP:AddToggle({
+    ["Title"] = "ESP Xương",
+    ["Content"] = "Enable ESP Xương (Red bone skeleton for players)",
+    ["Default"] = false,
+    ["Callback"] = function(Value)
+        ESPBones = Value
+        if ESPBones then
+            -- Bắt đầu hiển thị ESP Xương
+            for _, player in pairs(game:GetService("Players"):GetPlayers()) do
+                if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                    -- Tạo khung xương cho người chơi
+                    local skeleton = Instance.new("Model")
+                    skeleton.Name = player.Name .. "Skeleton"
+                    skeleton.Parent = workspace
+                    local bone = Instance.new("Part")
+                    bone.Size = Vector3.new(1, 6, 1)
+                    bone.Position = player.Character.HumanoidRootPart.Position
+                    bone.Anchored = true
+                    bone.Color = Color3.fromRGB(255, 0, 0)  -- Màu đỏ
+                    bone.CanCollide = false
+                    bone.Material = Enum.Material.SmoothPlastic
+                    bone.Parent = skeleton
+                    -- Lưu trữ đối tượng xương
+                    ESPBonesObjects[player] = skeleton
+                    -- Cập nhật vị trí liên tục
+                    game:GetService("RunService").Heartbeat:Connect(function()
+                        if skeleton and player.Character then
+                            bone.Position = player.Character.HumanoidRootPart.Position
+                        end
+                    end)
+                end
+            end
+        else
+            -- Tắt ESP Xương và xóa khung xương của người chơi cũ
+            for _, skeleton in pairs(ESPBonesObjects) do
+                if skeleton then
+                    skeleton:Destroy()
+                end
+            end
+            ESPBonesObjects = {}  -- Xóa tất cả đối tượng xương đã lưu
+        end
+    end
+})
+
+-- Mục 2: ESP Name Mod
+local ESPNameMod = false
+local ESPNameObjects = {}  -- Lưu trữ các BillboardGui của người chơi
+local ToggleESPNameMod = SectionESP:AddToggle({
+    ["Title"] = "ESP Name Mod",
+    ["Content"] = "Enable ESP Name Mod (Change player names to 'Duc Design On Top')",
+    ["Default"] = true,
+    ["Callback"] = function(Value)
+        ESPNameMod = Value
+        if ESPNameMod then
+            -- Thay đổi tên người chơi thành "Duc Design On Top" với màu xanh biển
+            for _, player in pairs(game:GetService("Players"):GetPlayers()) do
+                if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                    local nameTag = Instance.new("BillboardGui")
+                    nameTag.Name = player.Name .. "NameTag"
+                    nameTag.Parent = player.Character:WaitForChild("Head")
+                    nameTag.Adornee = player.Character.Head
+                    nameTag.Size = UDim2.new(0, 100, 0, 50)
+                    nameTag.StudsOffset = Vector3.new(0, 2, 0)
+
+                    local nameLabel = Instance.new("TextLabel")
+                    nameLabel.Parent = nameTag
+                    nameLabel.Size = UDim2.new(1, 0, 1, 0)
+                    nameLabel.BackgroundTransparency = 1
+                    nameLabel.Text = "Duc Design On Top"
+                    nameLabel.TextColor3 = Color3.fromRGB(0, 0, 255)  -- Màu xanh biển
+                    nameLabel.TextStrokeTransparency = 0.5
+                    nameLabel.TextSize = 18
+                    nameLabel.Font = Enum.Font.GothamBold
+                    nameLabel.TextAlign = Enum.TextXAlignment.Center
+
+                    -- Lưu trữ BillboardGui
+                    ESPNameObjects[player] = nameTag
+                end
+            end
+
+            -- Theo dõi khi có người chơi mới vào và thay đổi tên của họ
+            game:GetService("Players").PlayerAdded:Connect(function(player)
+                if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                    local nameTag = Instance.new("BillboardGui")
+                    nameTag.Name = player.Name .. "NameTag"
+                    nameTag.Parent = player.Character:WaitForChild("Head")
+                    nameTag.Adornee = player.Character.Head
+                    nameTag.Size = UDim2.new(0, 100, 0, 50)
+                    nameTag.StudsOffset = Vector3.new(0, 2, 0)
+
+                    local nameLabel = Instance.new("TextLabel")
+                    nameLabel.Parent = nameTag
+                    nameLabel.Size = UDim2.new(1, 0, 1, 0)
+                    nameLabel.BackgroundTransparency = 1
+                    nameLabel.Text = "Duc Design On Top"
+                    nameLabel.TextColor3 = Color3.fromRGB(0, 0, 255)  -- Màu xanh biển
+                    nameLabel.TextStrokeTransparency = 0.5
+                    nameLabel.TextSize = 18
+                    nameLabel.Font = Enum.Font.GothamBold
+                    nameLabel.TextAlign = Enum.TextXAlignment.Center
+
+                    -- Lưu trữ BillboardGui
+                    ESPNameObjects[player] = nameTag
+                end
+            end)
+        else
+            -- Quay lại tên người chơi bình thường và xóa BillboardGui
+            for _, player in pairs(game:GetService("Players"):GetPlayers()) do
+                if player.Character and ESPNameObjects[player] then
+                    ESPNameObjects[player]:Destroy()
+                    ESPNameObjects[player] = nil
+                end
+            end
+        end
+    end
+})
+
+-- Mục 3: ESP Khối
+local ESPBlocks = false
+local ESPBlocksObjects = {}  -- Lưu trữ các đối tượng khối của người chơi
+local ToggleESPBlocks = SectionESP:AddToggle({
+    ["Title"] = "ESP Khối",
+    ["Content"] = "Enable ESP Blocks (Block markers for players)",
+    ["Default"] = false,
+    ["Callback"] = function(Value)
+        ESPBlocks = Value
+        if ESPBlocks then
+            -- Bắt đầu hiển thị ESP Khối
+            for _, player in pairs(game:GetService("Players"):GetPlayers()) do
+                if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                    -- Xóa khối cũ của người chơi nếu có
+                    if ESPBlocksObjects[player] then
+                        ESPBlocksObjects[player]:Destroy()
+                    end
+                    
+                    -- Tạo khối cho người chơi mới
+                    local block = Instance.new("Part")
+                    block.Size = Vector3.new(2, 2, 2)
+                    block.Position = player.Character.HumanoidRootPart.Position
+                    block.Anchored = true
+                    block.Color = Color3.fromRGB(0, 255, 0)  -- Màu xanh lá
+                    block.CanCollide = false
+                    block.Material = Enum.Material.SmoothPlastic
+                    block.Transparency = 0.5  -- Xuyên tường
+                    block.Parent = workspace
+                    -- Lưu trữ đối tượng khối
+                    ESPBlocksObjects[player] = block
+                    -- Cập nhật vị trí khối liên tục
+                    game:GetService("RunService").Heartbeat:Connect(function()
+                        if block and player.Character then
+                            block.Position = player.Character.HumanoidRootPart.Position
+                        end
+                    end)
+                end
+            end
+        else
+            -- Tắt ESP Khối và xóa các khối của người chơi
+            for _, block in pairs(ESPBlocksObjects) do
+                if block then
+                    block:Destroy()
+                end
+            end
+            ESPBlocksObjects = {}  -- Xóa tất cả các đối tượng khối đã lưu
+        end
+    end
+})
+
+-- Tạo tab Tele
+local TabTele = FlurioreGui:CreateTab({
+    ["Name"] = "Tele",
+    ["Icon"] = "rbxassetid://7733960981"
+})
+
+-- Thêm section Tele All Players vào tab Tele
+local SectionTeleAll = TabTele:AddSection("Tele All Players")
+
+-- Mục 1: Tele All Players
+local TeleAllPlayers = false
+local ToggleTeleAllPlayers = SectionTeleAll:AddToggle({
+    ["Title"] = "Tele All Players",
+    ["Content"] = "Teleport to all players sequentially",
+    ["Default"] = false,
+    ["Callback"] = function(Value)
+        TeleAllPlayers = Value
+        if TeleAllPlayers then
+            local players = game:GetService("Players"):GetPlayers()
+            for i, player in pairs(players) do
+                if player ~= game:GetService("Players").LocalPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                    -- Teleport đến vị trí của người chơi
+                    game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = player.Character.HumanoidRootPart.CFrame
+                    wait(1)  -- Tạm dừng để đảm bảo đã tele đến vị trí người chơi
+                end
+            end
+        end
+    end
+})
+
+-- Thêm section Player List vào tab Tele
+local SectionPlayerList = TabTele:AddSection("Player List")
+
+-- Mục 2: Player List và Tele đến người chơi đã chọn
+local SelectedPlayer = nil
+local DropdownPlayerList = SectionPlayerList:AddDropdown({
+    ["Title"] = "Select Player",
+    ["Content"] = {},
+    ["Callback"] = function(Value)
+        SelectedPlayer = Value
+    end
+})
+
+-- Nút làm mới danh sách người chơi
+local ButtonRefreshPlayerList = SectionPlayerList:AddButton({
+    ["Title"] = "Refresh Player List",
+    ["Callback"] = function()
+        local playerNames = {}
+        for _, player in pairs(game:GetService("Players"):GetPlayers()) do
+            if player ~= game:GetService("Players").LocalPlayer then
+                table.insert(playerNames, player.Name)
+            end
+        end
+        DropdownPlayerList:UpdateList(playerNames)  -- Cập nhật lại danh sách người chơi
+    end
+})
+
+-- Nút Tele đến người chơi đã chọn
+local ButtonTeleToPlayer = SectionPlayerList:AddButton({
+    ["Title"] = "Teleport to Selected Player",
+    ["Callback"] = function()
+        local targetPlayer = game:GetService("Players"):FindFirstChild(SelectedPlayer)
+        if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+            -- Tele đến vị trí của người chơi được chọn
+            game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = targetPlayer.Character.HumanoidRootPart.CFrame
+        end
+    end
+})
+
+-- Tạo tab Aim
+local TabAim = FlurioreGui:CreateTab({
+    ["Name"] = "Aim",
+    ["Icon"] = "rbxassetid://7733960981"
+})
+
+-- Thêm section Aim Settings vào tab Aim
+local SectionAim = TabAim:AddSection("Aim Settings")
+
+-- Mục 1: Aim Siêu Dính
+local AimEnabled = false
+local TargetPart = "Head"  -- Mặc định aim vào đầu
+
+local ToggleAimEnabled = SectionAim:AddToggle({
+    ["Title"] = "Aim Siêu Dính",
+    ["Content"] = "Auto aim to the nearest player's head or torso",
+    ["Default"] = false,
+    ["Callback"] = function(Value)
+        AimEnabled = Value
+        if AimEnabled then
+            game:GetService("RunService").Heartbeat:Connect(function()
+                if AimEnabled then
+                    local localPlayer = game:GetService("Players").LocalPlayer
+                    local mouse = localPlayer:GetMouse()
+                    local closestPlayer = nil
+                    local closestDistance = math.huge
+
+                    for _, player in pairs(game:GetService("Players"):GetPlayers()) do
+                        if player ~= localPlayer and player.Character and player.Character:FindFirstChild(TargetPart) then
+                            local targetPos = player.Character[TargetPart].Position
+                            local screenPos = workspace.CurrentCamera:WorldToScreenPoint(targetPos)
+                            local distance = (Vector2.new(screenPos.X, screenPos.Y) - Vector2.new(mouse.X, mouse.Y)).Magnitude
+
+                            if distance < closestDistance then
+                                closestDistance = distance
+                                closestPlayer = player
+                            end
+                        end
+                    end
+
+                    if closestPlayer and closestPlayer.Character and closestPlayer.Character:FindFirstChild(TargetPart) then
+                        localPlayer:GetMouse().Hit = closestPlayer.Character[TargetPart].CFrame
+                    end
+                end
+            end)
+        end
+    end
+})
+
+-- Mục 2: Điều Chỉnh FOV
+local AimFOV = 100
+local CircleFOV = Drawing.new("Circle")
+CircleFOV.Thickness = 2
+CircleFOV.Transparency = 1
+CircleFOV.Color = Color3.fromRGB(0, 255, 0)
+CircleFOV.Visible = false
+
+local ToggleFOVEnabled = SectionAim:AddToggle({
+    ["Title"] = "FOV Enabled",
+    ["Content"] = "Enable Aim with FOV Circle",
+    ["Default"] = false,
+    ["Callback"] = function(Value)
+        CircleFOV.Visible = Value
+    end
+})
+
+local SliderFOV = SectionAim:AddSlider({
+    ["Title"] = "FOV Radius",
+    ["Min"] = 50,
+    ["Max"] = 500,
+    ["Default"] = 100,
+    ["Callback"] = function(Value)
+        AimFOV = Value
+        CircleFOV.Radius = AimFOV
+    end
+})
+
+-- Theo dõi vị trí của vòng tròn FOV
+game:GetService("RunService").RenderStepped:Connect(function()
+    local player = game:GetService("Players").LocalPlayer
+    local mouse = player:GetMouse()
+
+    CircleFOV.Position = Vector2.new(mouse.X, mouse.Y + 36)  -- Đặt vòng tròn ở vị trí con trỏ chuột
+end)
+
+-- Tính năng aim với FOV
+game:GetService("RunService").Heartbeat:Connect(function()
+    if AimEnabled and CircleFOV.Visible then
+        local localPlayer = game:GetService("Players").LocalPlayer
+        local mouse = localPlayer:GetMouse()
+        local closestPlayer = nil
+        local closestDistance = math.huge
+
+        for _, player in pairs(game:GetService("Players"):GetPlayers()) do
+            if player ~= localPlayer and player.Character and player.Character:FindFirstChild(TargetPart) then
+                local targetPos = player.Character[TargetPart].Position
+                local screenPos = workspace.CurrentCamera:WorldToScreenPoint(targetPos)
+                local distanceFromMouse = (Vector2.new(screenPos.X, screenPos.Y) - Vector2.new(mouse.X, mouse.Y)).Magnitude
+
+                if distanceFromMouse < AimFOV and distanceFromMouse < closestDistance then
+                    closestDistance = distanceFromMouse
+                    closestPlayer = player
+                end
+            end
+        end
+
+        if closestPlayer and closestPlayer.Character and closestPlayer.Character:FindFirstChild(TargetPart) then
+            localPlayer:GetMouse().Hit = closestPlayer.Character[TargetPart].CFrame
+        end
+    end
+end)
+
+-- Tạo tab Wall
+local TabWall = FlurioreGui:CreateTab({
+    ["Name"] = "Wall",
+    ["Icon"] = "rbxassetid://7733960981"
+})
+
+-- Thêm section Wall Settings vào tab Wall
+local SectionWall = TabWall:AddSection("Wall Settings")
+
+-- Mục 1: Xuyên Tường
+local WallHackEnabled = false
+
+local ToggleWallHack = SectionWall:AddToggle({
+    ["Title"] = "Xuyên Tường",
+    ["Content"] = "Enable wall walk (walk through walls)",
+    ["Default"] = false,
+    ["Callback"] = function(Value)
+        WallHackEnabled = Value
+        if WallHackEnabled then
+            -- Bật xuyên tường
+            local humanoid = game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid")
+            humanoid:ChangeState(Enum.HumanoidStateType.Physics)  -- Chuyển trạng thái nhân vật sang vật lý để đi xuyên tường
+        else
+            -- Tắt xuyên tường
+            local humanoid = game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid")
+            humanoid:ChangeState(Enum.HumanoidStateType.Running)  -- Trở lại trạng thái chạy bình thường
+        end
+    end
+})
+
+-- Mục 2: Jump (nhảy 10 lần liên tục)
+local JumpEnabled = false
+local JumpCount = 10  -- Số lần nhảy tối đa
+local CurrentJumpCount = 0  -- Số lần nhảy hiện tại
+
+local ToggleJump = SectionWall:AddToggle({
+    ["Title"] = "Jump Hack",
+    ["Content"] = "Enable multi-jump (jump up to 10 times consecutively)",
+    ["Default"] = false,
+    ["Callback"] = function(Value)
+        JumpEnabled = Value
+        if JumpEnabled then
+            -- Bắt đầu tính năng nhảy nhiều lần
+            game:GetService("UserInputService").JumpRequest:Connect(function()
+                if JumpEnabled and CurrentJumpCount < JumpCount then
+                    local humanoid = game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid")
+                    humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                    CurrentJumpCount = CurrentJumpCount + 1
+                end
+            end)
+
+            -- Reset số lần nhảy khi nhân vật chạm đất
+            game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").StateChanged:Connect(function(_, newState)
+                if newState == Enum.HumanoidStateType.Landed then
+                    CurrentJumpCount = 0
+                end
+            end)
+        end
+    end
+})
