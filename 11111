@@ -7417,7 +7417,7 @@ function buso() --- use buso haki
 end
 
 local uis = game:GetService("UserInputService")
-white = false
+white = true
 spawn(function() --- white screen 
     while task.wait() do
         pcall(function()
