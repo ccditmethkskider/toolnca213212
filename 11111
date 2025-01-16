@@ -13,7 +13,7 @@ getgenv().Config = {
     ken = true,
     autofastscreen = true ,
     removeeffect = true,
-    BootsFps = true,
+    BootsFps = false,
     distance = 0,
     hight = 30,
 
@@ -49,7 +49,7 @@ getgenv().Config = {
     fpslock = 60,
 
     --Combat
-    superhuman = true,
+    superhuman = false,
 }
 
 if not game:IsLoaded() then game.Loaded:Wait() end
@@ -81,7 +81,7 @@ game:GetService("Players")["LocalPlayer"].PlayerGui.Main.Version.TextColor3 = Co
 game:GetService("Players")["LocalPlayer"].PlayerGui.Main.Version.Font = Enum.Font.GothamBold
 spawn(function()
 	game:GetService("RunService").RenderStepped:Connect(function(frame)
-		game:GetService("Players").LocalPlayer.PlayerGui.Main.Version.Text = "Mawin kaitan ".."| FPS : "..math.round(1/frame)
+		game:GetService("Players").LocalPlayer.PlayerGui.Main.Version.Text = "Kaitun BY MINHDUC ".."| FPS : "..math.round(1/frame)
 	end)
 end)
 
