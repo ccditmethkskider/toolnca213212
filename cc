@@ -1,272 +1,208 @@
-// ==UserScript==
-// @name         DUC.DEV Bypass
-// @namespace    http://tampermonkey.net/
-// @version      0.8
-// @description  Bypass so cool
-// @author       UwU
-// @match        *://trigonevo.fun/whitelist/?HWID=*
-// @match        *://linkvertise.com/*
-// @match        https://linkvertise.com/580726/fluxus1*
-// @match        https://linkvertise.com/580726/fluxus*
-// @match        https://loot-link.com/*
-// @match        https://lootdest.org/*
-// @match        https://socialwolvez.com/*
-// @match        https://key.fluxteam.org/*
-// @match        https://getzorara.online:2053/*
-// @match        https://key.getwave.gg/*
-// @match        https://pandadevelopment.net/getkey?service=beeconhub*
-// @match        https://flux.li/android/external/start.php?HWID*
-// @match        https://flux.li/android/external/check1.php?hash={hash}*
-// @match        https://spdmteam.com/key-system-1?hwid=*
-// @match        https://spdmteam.com/key-system-2?hwid=*
-// @match        https://spdmteam.com/key-system-3?hwid=*
-// @match        https://keyguardian.org/a/1096?id=*
-// @match        https://getswift.xyz/real/*
-// @run-at       document-start
-// @icon         https://cdn.discordapp.com/avatars/1248562467240542208/a15472d7a7c67389033a031fc62e98a2.png?size=4096
-// ==/UserScript==
+Duc Design 🔥
+ducdesigner
+Trực tuyến
 
-(function() {
-    'use strict';
-
-    function createLogContainer() {
-        const logContainer = document.createElement('div');
-        logContainer.style.position = 'fixed';
-        logContainer.style.top = '10px';
-        logContainer.style.right = '10px';
-        logContainer.style.maxWidth = '300px';
-        logContainer.style.maxHeight = '300px';
-        logContainer.style.overflowY = 'auto';
-        logContainer.style.backgroundColor = '#333';
-        logContainer.style.color = 'white';
-        logContainer.style.padding = '10px';
-        logContainer.style.fontFamily = 'monospace';
-        logContainer.style.fontSize = '12px';
-        logContainer.style.borderRadius = '5px';
-        logContainer.style.zIndex = 1000;
-
-        if (document.body) {
-            document.body.appendChild(logContainer);
-        }
-
-        return logContainer;
-    }
-
-    function logToContainer(message) {
-        const logContainer = createLogContainer();
-        const logMessage = document.createElement('div');
-        logMessage.textContent = message;
-        logContainer.appendChild(logMessage);
-    }
-
-    window.addEventListener('load', function() {
-        const currentUrl = window.location.href;
-
-
-        if (currentUrl.includes('trigonevo.fun/whitelist/?HWID=')) {
-            const divElement = document.querySelector('div.glass-light.bg-blue-600.bg-opacity-20.hover-glow.cursor-pointer.rounded-lg.p-4.border-l-4.border-blue-400.shadow-md.relative.overflow-hidden');
-        if (divElement) {
-            divElement.click();
-            logToContainer('Click button');
-        } else {
-            logToContainer('whitelist');
-        }
-    }
-
-
-        if (currentUrl.startsWith('https://flux.li/android/external/start.php?HWID=')) {
-        window.location.href = 'https://linkvertise.com/580726/fluxus1';
-    }
-
-    else if (currentUrl.startsWith('https://linkvertise.com/580726/fluxus1')) {
-        window.location.href = 'https://flux.li/android/external/check1.php?hash={hash}';
-    }
-
-    else if (currentUrl.startsWith('https://flux.li/android/external/check1.php?hash={hash}')) {
-        window.location.href = 'https://linkvertise.com/580726/fluxus';
-    }
-
-    else if (currentUrl.startsWith('https://linkvertise.com/580726/fluxus')) {
-        const overlay = document.createElement('div');
-    overlay.style.position = 'fixed';
-    overlay.style.top = '0';
-    overlay.style.left = '0';
-    overlay.style.width = '100%';
-    overlay.style.height = '100%';
-    overlay.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
-    overlay.style.zIndex = '9999';
-    overlay.style.display = 'flex';
-    overlay.style.alignItems = 'center';
-    overlay.style.justifyContent = 'center';
-
-    const button = document.createElement('button');
-    button.textContent = 'Bypass';
-    button.style.padding = '20px 40px';
-    button.style.fontSize = '18px';
-    button.style.border = 'none';
-    button.style.backgroundColor = '#4CAF50';
-    button.style.color = 'white';
-    button.style.cursor = 'pointer';
-    button.style.borderRadius = '10px';
-    button.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
-    button.style.transition = 'background-color 0.3s';
-
-    button.addEventListener('click', function() {
-        window.location.href = `https://flux.li/android/external/main.php?hash={hash}`;
-    });
-
-    overlay.appendChild(button);
-    document.body.appendChild(overlay);
+dead server — 18/12/2024 6:49 CH
+Blox Fruit (main):
+getgenv().Team = "Marines"
+getgenv().Hide_Menu = false
+getgenv().Auto_Execute = false
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Xero2409/XeroHub/refs/heads/main/main.lua"))()
+ 
+dead server — 24/12/2024 8:55 CH
+Blox Fruit (kaitun):
+-- Max level, godhuman, cdk, sgt
+script_key = "" -- premium only, u can leave it blank if ur not
+getgenv().Shutdown = false -- Turn on if u are farming bulk accounts
+getgenv().Configs = {
+    ["Team"] = "Marines",
+    ["Gun Farm"] = false, -- Fast farm level, but farming melee is slow
+    ["FPS Boost"] = {
+        ["Enable"] = false,
+        ["FPS Cap"] = 30,
+    },
+    ["Farm Boss Drops"] = {
+        ["Enable"] = false,
+        ["When x2 Exp Expired"] = false
+    },
+    ["Hop"] = {
+        ["Enable"] = true,
+        ["Hop Find Tushita"] = true
+    },
+    ["Auto Collect Berry"] = true,
+    ["Auto Evo Race"] = true,
+    ["Awaken Fruit"] = true,
+    ["Rainbow Haki"] = true,
+    ["Hop Player Near"] = true,
+    ["Skull Guitar"] = true,
+    ["Find Fruit"] = false, -- Will find 1m+ fruit to unlock swan door to access third sea
+    ["Cursed Dual Katana"] = true,
+    ["Switch Melee"] = true,
+    ["Eat Fruit"] = "", -- leave blank for none, put the fruit name like this example: Smoke Fruit, T-Rex Fruit, ...
+    ["Snipe Fruit"] = "", -- leave blank for none, put the fruit name like this example: Smoke Fruit, T-Rex Fruit, ...
+    ["Lock Fragment"] = 0,
+    ["Buy Stuffs"] = true -- buso, geppo, soru, ken haki, ...
 }
-
-        if (currentUrl === "https://getzorara.online:2053/") {
-            setTimeout(function() {
-                const button = document.getElementById('generate-btn');
-                if (button) {
-                    button.click();
-                    logToContainer('Clicked Generate Button');
+repeat task.wait() pcall(function() loadstring(game:HttpGet("https://raw.githubusercontent.com/Xero2409/XeroHub/refs/heads/main/kaitun.lua"))() end) until getgenv().Check_Execute
+ 
+᲼1 — 10/01/2025 4:24 CH
+check config godhuman ⁠không xác định
+᲼1 — 10/01/2025 6:12 CH
+⁠faq-kaitun đừng add Fps boost bất cứ file ngoài 
+᲼1 — 11/01/2025 8:00 CH
+⁠faq-kaitun⁠ about farm bone 
+Seller — 13/01/2025 11:29 CH
+Blox Fruit (auto bounty):
+getgenv().Configs = {
+    ["Team"] = "Pirates", -- Pirates/Marines
+    ["Speed Tween"] = 300, -- Highly recommend 300 speed is good enough to anti security kick. maximum you can use is 350
+    ["Auto turn on race v3"] = true,
+    ["Auto turn on race v4"] = true,
+    ["Click Time"] = 0.2,
+Mở rộng
+message.txt
+5 KB
+Seller — 13/01/2025 11:45 CH
+bruh this is the trash config for me to test the script
+so please remember to change it or ⁠shared-config if someone share it idk good bye :D 
+﻿
+getgenv().Configs = {
+    ["Team"] = "Pirates", -- Pirates/Marines
+    ["Speed Tween"] = 300, -- Highly recommend 300 speed is good enough to anti security kick. maximum you can use is 350
+    ["Auto turn on race v3"] = true,
+    ["Auto turn on race v4"] = true,
+    ["Click Time"] = 0.2,
+    ["White Screen"] = false, -- false / true
+    ["Chat"] = {
+        ["Enable"] = true,
+        ["Message"] = {"gg", "np", "hi", "hehe"}, -- Input your message here
+    },
+    ["Run When Low Health"] = {
+        ["Enable"] = false,
+        ["Health"] = 3500,
+        ["Come back"] = true
+    },
+    ["Region"] = "United States", -- Singapore, United States, Germany, France, India, ??? ... or "All"
+    ["Weapons"] = {
+        ["Melee"] = {
+            ["Enable"] = true,
+            ["Delay"] = 1.75,
+            ["Order"] = 3,
+            ["Skills"] = {
+                ["Z"] = {
+                    ["Enable"] = true,
+                    ["HoldTime"] = 0,
+                    ["Order"] = 2,
+                    ["Time to next skill"] = 0
+                },
+                ["X"] = {
+                    ["Enable"] = true,
+                    ["HoldTime"] = 0,
+                    ["Order"] = 1,
+                    ["Time to next skill"] = 0
+                },
+                ["C"] = {
+                    ["Enable"] = true,
+                    ["HoldTime"] = 0,
+                    ["Order"] = 3,
+                    ["Time to next skill"] = 0
                 }
-            });
-        }
-
-        if (currentUrl.includes('key.fluxteam.org')) {
-            handleGenerateButton();
-        }
-
-        if (currentUrl.includes('loot-link.com') || currentUrl.includes('lootdest.org') || currentUrl.includes('linkvertise.com')) {
-            handleSpecialUrls();
-        }
-
-        if (currentUrl.includes('pandadevelopment.net/getkey?service=beeconhub')) {
-            clickButton();
-        }
-
-        if (currentUrl.includes('https://keyguardian.org/a/1096?id=')) {
-             keyguardian();
-        }
-
-        if (currentUrl.includes("https://spdmteam.com/key-system-3?hwid=")) {
-            const targetUrl = "https://direct-link.net/376138/arceus-x-neo-key-system-3";
-            window.location.href = targetUrl;
-        } else if (currentUrl.includes("https://spdmteam.com/key-system-2?hwid=")) {
-            const targetUrl = "https://direct-link.net/376138/arceus-x-neo-key-system-2";
-            window.location.href = targetUrl;
-        } else if (currentUrl.includes("https://spdmteam.com/key-system-1?hwid=")) {
-            logToContainer('Vui lòng xác minh capcha');
-        }
-          if (currentUrl.startsWith("https://getswift.xyz/real/0/") ||
-            currentUrl.startsWith("https://getswift.xyz/real/1/") ||
-            currentUrl.startsWith("https://getswift.xyz/real/2/")) {
-            setInterval(function() {
-                const button = document.querySelector("body > div > form > div.flex.flex-col.w-full.mb-\\[2rem\\].items-center > button");
-                if (button) {
-                    button.click();
-                    logToContainer('Bypass Click button');
+            }
+        },
+        ["Blox Fruit"] = {
+            ["Enable"] = true,
+            ["Delay"] = 0.2,
+            ["Order"] = 4,
+            ["Skills"] = {
+                ["Z"] = {
+                    ["Enable"] = true,
+                    ["HoldTime"] = 0,
+                    ["Order"] = 2,
+                    ["Time to next skill"] = 0
+                },
+                ["X"] = {
+                    ["Enable"] = true,
+                    ["HoldTime"] = 0,
+                    ["Order"] = 1,
+                    ["Time to next skill"] = 0
+                },
+                ["C"] = {
+                    ["Enable"] = false,
+                    ["HoldTime"] = 0,
+                    ["Order"] = 0,
+                    ["Time to next skill"] = 0
+                },
+                ["V"] = {
+                    ["Enable"] = false,
+                    ["HoldTime"] = 0,
+                    ["Order"] = 0,
+                    ["Time to next skill"] = 0
+                },
+                ["F"] = {
+                    ["Enable"] = false,
+                    ["HoldTime"] = 0,
+                    ["Order"] = 0,
+                    ["Time to next skill"] = 0
                 }
-            }, 1000);
-        }
-
-          if (currentUrl.startsWith("https://getswift.xyz/real/3/")) {
-            logToContainer("Vui lòng nhấn 'Get Key'");
-        }
-
-    });
-
-    function handleSpecialUrls(logContainer) {
-    logToContainer(logContainer, 'Vui lòng chờ để bypass');
-    setTimeout(function() {
-        const currentUrl = window.location.href;
-
-        if (currentUrl.includes("https://linkvertise.com/580726/fluxus1") || currentUrl.includes("https://linkvertise.com/580726/fluxus")) {
-            logToContainer(logContainer, 'URL là link không cần bypass');
-            return;
-        }
-
-        const redirectParamIndex = currentUrl.indexOf("&redirect=");
-        if (redirectParamIndex !== -1) {
-            const encodedRedirectUrl = currentUrl.substring(redirectParamIndex + 10);
-            const decodedUrl = decodeURIComponent(encodedRedirectUrl);
-
-            logToContainer(logContainer, `Success:  ${decodedUrl}`);
-            window.location.href = decodedUrl;
-        } else {
-            const bypassUrl = `https://bypass.vip/userscript?url=${encodeURIComponent(currentUrl)}&time=1&key=`;
-
-            logToContainer(logContainer, `Bypass URL: ${bypassUrl}`);
-            window.location.href = bypassUrl;
-        }
-    });
-}
-
-    function handleGenerateButton() {
-        const generateButton = document.querySelector('button.generate-button');
-        if (generateButton) {
-            logToContainer('Clicking generate button...');
-            generateButton.click();
-
-            setTimeout(() => {
-                const finalUrlElement = document.querySelector('.key-display');
-                if (finalUrlElement) {
-                    const finalUrl = finalUrlElement.textContent.trim();
-                    if (finalUrl) {
-                        logToContainer(`Redirecting to: ${finalUrl}`);
-                        window.location.href = finalUrl;
-                    } else {
-                        logToContainer('No URL found after clicking generate.');
-                    }
-                } else {
-                    logToContainer('Key display not found.');
+            }
+        },
+        ["Sword"] = {
+            ["Enable"] = false,
+            ["Delay"] = 0.75,
+            ["Order"] = 1,
+            ["Skills"] = {
+                ["Z"] = {
+                    ["Enable"] = true,
+                    ["HoldTime"] = 0,
+                    ["Order"] = 1,
+                    ["Time to next skill"] = 0
+                },
+                ["X"] = {
+                    ["Enable"] = true,
+                    ["HoldTime"] = 0,
+                    ["Order"] = 2,
+                    ["Time to next skill"] = 0
                 }
-            }, 5000);
-        } else {
-            logToContainer('Use key');
-        }
-    }
-
-    function clickButton() {
-        const button1 = document.querySelector('a.button-simple[href*="getkey?service=beeconhub"][href*="checkpoints=48"]');
-        if (button1) {
-            button1.click();
-            logToContainer('Bypass Button clicked');
-            return;
-        }
-
-        if (window.location.href.includes('checkpoints=48')) {
-            const button2 = document.querySelector('button.button-simple.w-inline-block');
-            if (button2) {
-                button2.click();
-                logToContainer('Click button continue');
+            }
+        },
+        ["Gun"] = {
+            ["Enable"] = false,
+            ["Delay"] = 1.5,
+            ["Order"] = 2,
+            ["Skills"] = {
+                ["Z"] = {
+                    ["Enable"] = true,
+                    ["HoldTime"] = 0,
+                    ["Order"] = 2,
+                    ["Time to next skill"] = 0
+                },
+                ["X"] = {
+                    ["Enable"] = true,
+                    ["HoldTime"] = 0,
+                    ["Order"] = 1,
+                    ["Time to next skill"] = 0
+                }
             }
         }
-    }
-
-    function keyguardian(logContainer) {
-        const button1 = document.querySelector('div.flex.items-center.p-6.pt-0.relative a.w-full.group');
-        if (button1) {
-            button1.click();
-            logToContainer(logContainer, 'Bypass Button clicked');
-            setTimeout(() => {
-                window.location.reload();
-            }, 1000);
-            return;
+    },
+    ["Theme"] = {
+        ["Enable"] = true,
+        ["Hide Theme"] = true,
+        ["Name"] = "Gojo", -- Gojo
+        ["Custom Theme"] = {
+            ["Enable"] = false, -- enable theme first
+            ["Text Color"] = Color3.fromRGB(231, 85, 88),
+            ["Character Position"] = UDim2.new(0.563000023, 0, -0.174999997, 0),
+            ["Character Size"] = UDim2.new(0.3, 0, 1.4, 0)
         }
-
-        if (window.location.href.includes('&providerId=')) {
-            const button2 = document.querySelector("body > main > div > div > div.items-center.p-6.pt-0.flex.justify-between > button");
-            if (button2) {
-                button2.click();
-                logToContainer(logContainer, 'Click button continue');
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1000);
-            }
-        }
+    },
+    ["Webhook"] = {
+        ["Enable"] = false,
+        ["Url"] = "",
+        ["Image"] = "https://media.discordapp.net/attachments/1162947702615711765/1229739840661094451/background.png?ex=67576eb9&is=67561d39&hm=da94e1b066b7a974e1577fe4fb355ce2907de8acf56aa4c467d7023a59d1d927&=&format=webp&quality=lossless&width=692&height=395"
     }
+}
 
-    setTimeout(() => {
-        const logContainer = document.createElement('div');
-        document.body.appendChild(logContainer);
-        clickButton(logContainer);
-    }, 1000);
-
-})();
+repeat task.wait(1) pcall(function() loadstring(game:HttpGet("https://raw.githubusercontent.com/Xero2409/XeroHub/refs/heads/main/bounty.lua"))() end) until getgenv().Execution
+message.txt
+5 KB
