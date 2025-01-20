@@ -1,15 +1,12 @@
-Duc Design 🔥
-ducdesigner
-Trực tuyến
 
-dead server — 18/12/2024 6:49 CH
+
 Blox Fruit (main):
 getgenv().Team = "Marines"
 getgenv().Hide_Menu = false
 getgenv().Auto_Execute = false
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Xero2409/XeroHub/refs/heads/main/main.lua"))()
  
-dead server — 24/12/2024 8:55 CH
+
 Blox Fruit (kaitun):
 -- Max level, godhuman, cdk, sgt
 script_key = "" -- premium only, u can leave it blank if ur not
@@ -45,26 +42,14 @@ getgenv().Configs = {
 }
 repeat task.wait() pcall(function() loadstring(game:HttpGet("https://raw.githubusercontent.com/Xero2409/XeroHub/refs/heads/main/kaitun.lua"))() end) until getgenv().Check_Execute
  
-᲼1 — 10/01/2025 4:24 CH
-check config godhuman ⁠không xác định
-᲼1 — 10/01/2025 6:12 CH
-⁠faq-kaitun đừng add Fps boost bất cứ file ngoài 
-᲼1 — 11/01/2025 8:00 CH
-⁠faq-kaitun⁠ about farm bone 
-Seller — 13/01/2025 11:29 CH
-Blox Fruit (auto bounty):
+
+bounty script :
 getgenv().Configs = {
     ["Team"] = "Pirates", -- Pirates/Marines
     ["Speed Tween"] = 300, -- Highly recommend 300 speed is good enough to anti security kick. maximum you can use is 350
     ["Auto turn on race v3"] = true,
     ["Auto turn on race v4"] = true,
     ["Click Time"] = 0.2,
-Mở rộng
-message.txt
-5 KB
-Seller — 13/01/2025 11:45 CH
-bruh this is the trash config for me to test the script
-so please remember to change it or ⁠shared-config if someone share it idk good bye :D 
 ﻿
 getgenv().Configs = {
     ["Team"] = "Pirates", -- Pirates/Marines
@@ -204,5 +189,4 @@ getgenv().Configs = {
 }
 
 repeat task.wait(1) pcall(function() loadstring(game:HttpGet("https://raw.githubusercontent.com/Xero2409/XeroHub/refs/heads/main/bounty.lua"))() end) until getgenv().Execution
-message.txt
-5 KB
+
