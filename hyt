@@ -1,0 +1,46 @@
+local Players = game:GetService("Players")
+local TeleportService = game:GetService("TeleportService")
+local HttpService = game:GetService("HttpService")
+
+-- Gửi yêu cầu kết bạn
+local function sendFriendRequest(player)
+    if player and player ~= Players.LocalPlayer then
+        Players.LocalPlayer:RequestFriendship(player)
+        wait(1)  -- Thời gian đợi sau khi gửi yêu cầu
+        game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Please accept to be my friend", "All")
+    end
+end
+
+-- Tự động gửi yêu cầu kết bạn cho tất cả người chơi trong server
+local function sendFriendRequestsToAll()
+    for _, player in pairs(Players:GetPlayers()) do
+        sendFriendRequest(player)
+    end
+end
+
+-- Đổi server sang một server mới
+local function changeServer()
+    local maxPlayers = 12  -- Số lượng người chơi tối đa cho server mới
+    local servers = HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/"..game.PlaceId.."/servers/Public?sortOrder=Asc&limit=100"))
+
+    for _, server in pairs(servers.data) do
+        if server.playing < server.maxPlayers and server.id ~= game.JobId then
+            TeleportService:TeleportToPlaceInstance(game.PlaceId, server.id)
+            return  -- Đổi server thành công
+        end
+    end
+
+    -- Nếu không tìm được server thích hợp, thử lại sau 10 giây
+    wait(10)
+    changeServer()
+end
+
+-- Đếm thời gian 2 phút và đổi server
+local function autoChangeServer()
+    wait(120)  -- Chờ 2 phút (120 giây)
+    changeServer()  -- Đổi server
+end
+
+-- Bắt đầu script
+sendFriendRequestsToAll()
+autoChangeServer()
