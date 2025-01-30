@@ -1,0 +1,62 @@
+local ScreenGui = Instance.new("ScreenGui")
+local TextLabel = Instance.new("TextLabel")
+
+ScreenGui.Parent = game.CoreGui
+
+TextLabel.Parent = ScreenGui
+TextLabel.Text = "Yae Miko Aim PvP \n Zalo.me/g/kmhete440"
+TextLabel.Position = UDim2.new(0.5, 0, 0,5, 0.5)
+TextLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+TextLabel.BackgroundTransparency = 0.5
+TextLabel.TextSize = 15
+TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel.TextWrapped = false
+
+-- Cập nhật kích thước TextLabel để phù hợp với độ dài của văn bản
+local function adjustUI(label)
+    local textLength = string.len(label.Text)
+    local textWidth = textLength * label.TextSize * 0
+    label.Size = UDim2.new(0, textWidth + 0, 0, 0)
+end
+
+adjustUI(TextLabel)
+
+-- Biến để kiểm soát di chuyển
+local moveSpeed = 0
+local directionX = moveSpeed
+local directionY = moveSpeed
+
+-- Hàm để di chuyển TextLabel
+local function moveLabel()
+    while true do
+        local currentPos = TextLabel.Position
+        local newX = currentPos.X.Scale + directionX
+        local newY = currentPos.Y.Scale + directionY
+
+        -- Kiểm tra biên để đảo hướng
+        if newX >= 1 or newX <= 0 then
+            directionX = -directionX
+        end
+        if newY >= 1 or newY <= 0 then
+            directionY = -directionY
+        end
+
+        -- Cập nhật vị trí mới cho TextLabel
+        TextLabel.Position = UDim2.new(newX, 0, newY, 0)
+        wait(0.03) -- Điều chỉnh tốc độ cập nhật vị trí
+    end
+end
+
+-- Bắt đầu chạy hàm di chuyển trong một luồng mới
+spawn(moveLabel)
+
+-- Thay đổi màu sắc liên tục
+spawn(function()
+    while true do
+        for i = 0, 1, 0.01 do
+            TextLabel.TextColor3 = Color3.fromHSV(i, 1, 1)
+            wait(0.05)
+        end
+    end
+end)
