@@ -340,61 +340,67 @@ local Tabs = {
     Main = Window:AddTab({ Title = "Server Hopping", Icon = "" }),
 }
 
-local ToggleRip = Tabs.Main:AddToggle("HopServerRip", {Title = "Hop Server Rip", Default = false })
-ToggleRip:OnChanged(function(Value)
-    if Value then
-        HopServerBoss("rip_indra True Form")
-    end
-end)
+local MysteryIsland = Tabs.Status:AddParagraph({
+    Title = "Đảo Bí Ẩn",
+    Content = ""
+})
 
-local ToggleDough = Tabs.Main:AddToggle("HopServerDough", {Title = "Hop Server Dough", Default = false })
-ToggleDough:OnChanged(function(Value)
-    if Value then
-        HopServerBoss("Dough King")
-    end
-end)
-
-function CheckBossAttack(targetBoss)
-    for _, Boss in pairs(game.Workspace.Enemies:GetChildren()) do
-        if Boss.Name == targetBoss and DetectingPart(Boss) and Boss.Humanoid.Health > 0 then
-            return Boss
-        end
-    end
-    for _, Boss in pairs(game.ReplicatedStorage:GetChildren()) do
-        if Boss.Name == targetBoss then
-            return Boss
-        end
-    end
-end
-
-function DetectingPart(v1)
-    return v1 and v1:FindFirstChild("HumanoidRootPart") and v1:FindFirstChild("Humanoid")
-end
-
-function HopServerBoss(targetBoss)
-    spawn(function() 
-        while task.wait() do
-            if not CheckBossAttack(targetBoss) then
-                repeat 
-                    task.wait(1.8)
-                    RipIndra()
-                until CheckBossAttack(targetBoss)
-                return
+spawn(function()
+    pcall(function()
+        while wait() do
+            if game:GetService("Workspace").Map:FindFirstChild("HauntedCastle") then
+                MysteryIsland:SetDesc('✅ Đảo Bí Ẩn đã xuất hiện!')
+            else
+                MysteryIsland:SetDesc('❌ Đảo Bí Ẩn chưa xuất hiện.')
             end
         end
     end)
-end
+end)
 
-getgenv().RipIndra = function()
-    local url = 'https://anbeo.onrender.com/api/status'
-    local foundServers = game:GetService('HttpService'):JSONDecode(game:HttpGet(url))
-    for _, v in pairs(foundServers) do 
-        if v.jobId ~= game.JobId then 
-            game:GetService("TeleportService"):TeleportToPlaceInstance(7449423635, v.jobId, game.Players.LocalPlayer)
-            break
+local Input = Tabs.Main:AddInput("Input", {
+    Title = "Job ID",
+    Default = "",
+    Placeholder = "Dán Job ID Vào Đây",
+    Numeric = false,
+    Finished = false,
+    Callback = function(Value)
+        _G.Job = Value
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Bắt Đầu Tham Gia Job ID",
+    Description = "Tham gia vào server theo Job ID đã nhập",
+    Callback = function()
+        if _G.Job and _G.Job ~= "" then
+            game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, _G.Job, game.Players.LocalPlayer)
+        else
+            warn("Bạn chưa nhập Job ID!")
         end
     end
-end
+})
+
+Tabs.Main:AddButton({
+    Title = "Sao Chép Job ID",
+    Description = "Sao chép Job ID hiện tại vào clipboard",
+    Callback = function()
+        setclipboard(tostring(game.JobId))
+    end
+})
+
+local Toggle = Tabs.Main:AddToggle("MyToggle", { Title = "Spam Tham Gia Job ID", Default = false })
+Toggle:OnChanged(function(Value)
+    _G.Join = Value
+end)
+
+spawn(function()
+    while task.wait(2) do
+        if _G.Join and _G.Job and _G.Job ~= "" then
+            game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, _G.Job, game.Players.LocalPlayer)
+        end
+    end
+end)
+
 
 
 
