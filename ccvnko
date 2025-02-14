@@ -340,23 +340,6 @@ local Tabs = {
     Main = Window:AddTab({ Title = "Server Hopping", Icon = "" }),
 }
 
-local MysteryIsland = Tabs.Status:AddParagraph({
-    Title = "Đảo Bí Ẩn",
-    Content = ""
-})
-
-spawn(function()
-    pcall(function()
-        while wait() do
-            if game:GetService("Workspace").Map:FindFirstChild("HauntedCastle") then
-                MysteryIsland:SetDesc('✅ Đảo Bí Ẩn đã xuất hiện!')
-            else
-                MysteryIsland:SetDesc('❌ Đảo Bí Ẩn chưa xuất hiện.')
-            end
-        end
-    end)
-end)
-
 local Input = Tabs.Main:AddInput("Input", {
     Title = "Job ID",
     Default = "",
