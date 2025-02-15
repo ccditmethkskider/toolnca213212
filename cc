@@ -22,7 +22,7 @@ vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
 wait(1)
 vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
 end)
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/daucobonhi/Ui-Switch/refs/heads/main/Switch%20Hub%20Ui.lua')))()
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/1st-Mars/Misc/main/O')))()
 local Window = OrionLib:MakeWindow({Name = "Banana Hub",IntroText = "Banana Library"})
 local Tab7 = Window:MakeTab({
 	Name = "Shop",
