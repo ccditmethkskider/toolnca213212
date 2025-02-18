@@ -1,0 +1,21 @@
+return function(Settings)
+    -- Giá trị mặc định nếu người dùng không truyền config
+    Settings = Settings or {}
+    local ChatMessage = Settings.ChatMessage or "Xin chào! 🚀"
+    local ChatDelay = Settings.ChatDelay or 5
+
+    -- Auto chat trong khung chat
+    local ReplicatedStorage = game:GetService("ReplicatedStorage")
+    local ChatEvent = ReplicatedStorage:FindFirstChild("DefaultChatSystemChatEvents")
+
+    if ChatEvent then
+        local SayMessageRequest = ChatEvent:FindFirstChild("SayMessageRequest")
+
+        if SayMessageRequest then
+            while true do
+                wait(ChatDelay)
+                SayMessageRequest:FireServer(ChatMessage, "All")
+            end
+        end
+    end
+end
