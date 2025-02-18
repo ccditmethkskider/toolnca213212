@@ -2,10 +2,10 @@ return function(Settings)
     local Players = game:GetService("Players")
     local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-    -- Giá trị mặc định nếu người dùng không truyền config
+    -- Kiểm tra và gán giá trị mặc định cho Settings nếu không được truyền vào
     Settings = Settings or {}
-    local ChatMessage = Settings.ChatMessage or "Chào mừng đến với trò chơi Roblox của tôi!"
-    local ChatDelay = Settings.ChatDelay or 5
+    local ChatMessage = Settings.ChatMessage
+    local ChatDelay = Settings.ChatDelay
 
     -- Hàm gửi tin nhắn tự động
     local function AutoChat(player)
