@@ -4,14 +4,24 @@ return function(Settings)
 
     -- Giá trị mặc định nếu người dùng không truyền config
     Settings = Settings or {}
-    local ChatMessage = Settings.ChatMessage or "Make by Duc Designer .Site!"
+    local ChatMessage = Settings.ChatMessage or "Chào mừng đến với trò chơi Roblox của tôi!"
     local ChatDelay = Settings.ChatDelay or 5
 
     -- Hàm gửi tin nhắn tự động
     local function AutoChat(player)
         while true do
             wait(ChatDelay) -- Dùng thời gian chờ từ config
-            ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(ChatMessage, "All")
+            local ChatEvent = ReplicatedStorage:FindFirstChild("DefaultChatSystemChatEvents")
+            if ChatEvent then
+                local SayMessageRequest = ChatEvent:FindFirstChild("SayMessageRequest")
+                if SayMessageRequest then
+                    SayMessageRequest:FireServer(ChatMessage, "All")
+                else
+                    warn("SayMessageRequest không tồn tại!")
+                end
+            else
+                warn("DefaultChatSystemChatEvents không tồn tại!")
+            end
         end
     end
 
@@ -19,4 +29,9 @@ return function(Settings)
     Players.PlayerAdded:Connect(function(player)
         AutoChat(player)
     end)
+
+    -- Nếu có người chơi sẵn, tự động bắt đầu
+    if #Players:GetPlayers() > 0 then
+        AutoChat(Players.LocalPlayer)
+    end
 end
