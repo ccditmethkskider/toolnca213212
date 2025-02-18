@@ -1,7 +1,7 @@
 return function(Settings)
     -- Giá trị mặc định nếu người dùng không truyền config
     Settings = Settings or {}
-    local ChatMessage = Settings.ChatMessage or "Xin chào! 🚀"
+    local ChatMessage = Settings.ChatMessage or "Chat con me may nek! 🚀"
     local ChatDelay = Settings.ChatDelay or 5
 
     -- Auto chat trong khung chat
