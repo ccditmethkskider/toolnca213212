@@ -1,20 +1,73 @@
--- Lấy bảng Settings được truyền vào từ file chính
-local function AutoChat(Settings)
+-- Lấy bảng Settings từ biến toàn cục _G.Settings
+local function AutoChatAndFriend(Settings)
     local Players = game:GetService("Players")
+    local Lighting = game:GetService("Lighting")
 
-    -- Hàm gửi tin nhắn tự động
-    local function SendMessage()
-        while true do
-            wait(Settings.ChatDelay) -- Dùng giá trị ChatDelay từ bảng Settings
-            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(Settings.ChatMessage, "All")
+    -- Hàm giảm FPS
+    local function ReduceFPS(fps)
+        if setfpscap then
+            setfpscap(fps) -- Giảm FPS theo cấu hình
+        else
+            warn("Không hỗ trợ giảm FPS trên thiết bị này")
         end
     end
 
-    -- Khi người chơi tham gia, bắt đầu auto chat
-    Players.PlayerAdded:Connect(function(player)
-        SendMessage()
-    end)
+    -- Hàm tối ưu hóa FPS (bật/tắt dựa trên Settings)
+    local function OptimizeFPS(enable)
+        if enable then
+            -- Xóa bóng
+            Lighting.GlobalShadows = false
+            Lighting.FogEnd = 9e9
+
+            -- Xóa mặt trời
+            if Lighting:FindFirstChild("SunRays") then
+                Lighting:FindFirstChild("SunRays"):Destroy()
+            end
+
+            -- Xóa màu (Chuyển về màu xám)
+            for _, v in pairs(Lighting:GetChildren()) do
+                if v:IsA("ColorCorrectionEffect") or v:IsA("BloomEffect") or v:IsA("DepthOfFieldEffect") then
+                    v:Destroy()
+                end
+            end
+            print("FPS Optimization Applied: Shadows Removed, Sun Removed, Colors Adjusted")
+        else
+            print("FPS Optimization is Disabled")
+        end
+    end
+
+    -- Hàm auto gửi tin nhắn chat
+    local function SendMessage()
+        while true do
+            print("Waiting for "..Settings.ChatDelay.." seconds before next message.")
+            wait(Settings.ChatDelay) -- Sử dụng giá trị ChatDelay từ Settings
+            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(Settings.ChatMessage, "All")
+        end
+    end    
+
+    -- Hàm auto gửi kết bạn
+    local function AutoFriendRequest()
+        while true do
+            for _, player in pairs(Players:GetPlayers()) do
+                if player ~= Players.LocalPlayer then
+                    Players.LocalPlayer:RequestFriendship(player)
+                    wait(Settings.FriendDelay) -- Delay giữa mỗi lần gửi kết bạn
+                end
+            end
+            wait(Settings.ServerSwitchDelay) -- Thời gian đợi trước khi đổi server
+            -- Chức năng đổi server (có thể tùy biến thêm)
+            if Settings.AutoSwitchServer then
+                game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId)
+            end
+        end
+    end
+
+    -- Khởi chạy chức năng giảm FPS và tối ưu hóa FPS nếu được bật
+    ReduceFPS(Settings.FPSCap)
+    OptimizeFPS(Settings.FPSOptimization)
+    SendMessage()
+    AutoFriendRequest()
 end
 
--- Khởi chạy hàm AutoChat với Settings
-AutoChat(_G.Settings)
+-- Khởi chạy với Settings
+AutoChatAndFriend(_G.Settings)
