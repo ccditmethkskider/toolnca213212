@@ -1,37 +1,20 @@
-return function(Settings)
+-- Lấy bảng Settings được truyền vào từ file chính
+local function AutoChat(Settings)
     local Players = game:GetService("Players")
-    local ReplicatedStorage = game:GetService("ReplicatedStorage")
-
-    -- Kiểm tra và gán giá trị mặc định cho Settings nếu không được truyền vào
-    Settings = Settings or {}
-    local ChatMessage = Settings.ChatMessage
-    local ChatDelay = Settings.ChatDelay
 
     -- Hàm gửi tin nhắn tự động
-    local function AutoChat(player)
+    local function SendMessage()
         while true do
-            wait(ChatDelay) -- Dùng thời gian chờ từ config
-            local ChatEvent = ReplicatedStorage:FindFirstChild("DefaultChatSystemChatEvents")
-            if ChatEvent then
-                local SayMessageRequest = ChatEvent:FindFirstChild("SayMessageRequest")
-                if SayMessageRequest then
-                    SayMessageRequest:FireServer(ChatMessage, "All")
-                else
-                    warn("SayMessageRequest không tồn tại!")
-                end
-            else
-                warn("DefaultChatSystemChatEvents không tồn tại!")
-            end
+            wait(Settings.ChatDelay) -- Dùng giá trị ChatDelay từ bảng Settings
+            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(Settings.ChatMessage, "All")
         end
     end
 
-    -- Khi có người chơi tham gia, bắt đầu auto chat với config riêng
+    -- Khi người chơi tham gia, bắt đầu auto chat
     Players.PlayerAdded:Connect(function(player)
-        AutoChat(player)
+        SendMessage()
     end)
-
-    -- Nếu có người chơi sẵn, tự động bắt đầu
-    if #Players:GetPlayers() > 0 then
-        AutoChat(Players.LocalPlayer)
-    end
 end
+
+-- Khởi chạy hàm AutoChat với Settings
+AutoChat(_G.Settings)
