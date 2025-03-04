@@ -83,7 +83,7 @@ Converted["_ambientShadow"].Name = "ambientShadow"
 Converted["_ambientShadow"].Parent = Converted["_shadowHolder"]
 
 Converted["_TextLabel"].Font = Enum.Font.FredokaOne
-Converted["_TextLabel"].Text = "Status: Auto Farm Lv"
+Converted["_TextLabel"].Text = "Status: Auto Dough King"
 Converted["_TextLabel"].TextColor3 = Color3.fromRGB(255, 238.00001621246338, 6.0000005923211575)
 Converted["_TextLabel"].TextSize = 26
 Converted["_TextLabel"].TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
@@ -101,7 +101,7 @@ Converted["_UIPadding"].Parent = Converted["_TextLabel"]
 Converted["_UIGradient"].Parent = Converted["_TextLabel"]
 
 Converted["_TextLabel1"].Font = Enum.Font.FredokaOne
-Converted["_TextLabel1"].Text = "[+] Hỗ trợ farm lv - auto raid "
+Converted["_TextLabel1"].Text = "[+] Auto Hop + Auto Kill "
 Converted["_TextLabel1"].TextColor3 = Color3.fromRGB(255, 255, 11.000000294297934)
 Converted["_TextLabel1"].TextSize = 23
 Converted["_TextLabel1"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -130,7 +130,7 @@ Converted["_Frame1"].Size = UDim2.new(0, 202, 0, 1)
 Converted["_Frame1"].Parent = Converted["_Frame"]
 
 Converted["_TextLabel2"].Font = Enum.Font.FredokaOne
-Converted["_TextLabel2"].Text = "yaemikokaitun"
+Converted["_TextLabel2"].Text = "duckcoderlod"
 Converted["_TextLabel2"].TextColor3 = Color3.fromRGB(247.00001567602158, 247.00001567602158, 6.0000005923211575)
 Converted["_TextLabel2"].TextSize = 15
 Converted["_TextLabel2"].Active = true
@@ -142,7 +142,7 @@ Converted["_TextLabel2"].Position = UDim2.new(0.0624048226, 0, -14.0275574, 0)
 Converted["_TextLabel2"].Size = UDim2.new(0, 200, 0, 15)
 Converted["_TextLabel2"].Parent = Converted["_Frame1"]
 
-Converted["_ImageLabel"].Image = "http://www.roblox.com/asset/?id=121842404613757"
+Converted["_ImageLabel"].Image = "http://www.roblox.com/asset/?id=129268713156156"
 Converted["_ImageLabel"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Converted["_ImageLabel"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 Converted["_ImageLabel"].BorderSizePixel = 0
